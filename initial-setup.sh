@@ -6,6 +6,9 @@ sudo aptitude -y upgrade
 # install git
 sudo apt-get -y install git
 
+# install zsh
+sudo apt-get -y install zsh
+
 sudo aptitude -y install build-essential \
                          libsqlite3-dev \
                          libreadline6-dev \
