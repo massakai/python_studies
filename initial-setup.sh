@@ -3,6 +3,9 @@
 sudo aptitude -y update
 sudo aptitude -y upgrade
 
+# install git
+sudo apt-get -y install git
+
 sudo aptitude -y install build-essential \
                          libsqlite3-dev \
                          libreadline6-dev \
