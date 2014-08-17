@@ -24,3 +24,13 @@ def save_data(name, comment, create_at):
     database['greeting_list'] = greeting_list
     # データベースファイルを閉じます
     database.close()
+
+def load_data():
+    u"""投稿されたデータを返します
+    """
+    # shelveモジュールでデータベースファイルを開きます
+    database = shelve.open(DATA_FILE)
+    # greeting_listを返します。データがなければ空のリストを返します
+    greeting_list = database.get('greeting_list', [])
+    database.close()
+    return greeting_list
