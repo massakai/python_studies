@@ -61,6 +61,12 @@ def nl2br_filter(s):
     """
     return escape(s).replace('\n', Markup('<br />'))
 
+@application.template_filter('datetime_fmt')
+def datetime_fmt_filter(dt):
+    u"""datetimeオブジェクトを見やすい表示にするテンプレートフィルタ
+    """
+    return dt.strftime('%Y/%m/%d %H:%M:%S')
+
 @application.route('/')
 def index():
     u"""トップページ
