@@ -1,4 +1,5 @@
 # coding: utf-8
+from datetime import datetime
 import shelve
 
 from flask import Flask, request, render_template, redirect, escape, Markup
@@ -40,6 +41,19 @@ def load_data():
     greeting_list = database.get('greeting_list', [])
     database.close()
     return greeting_list
+
+@application.route('/post', methods=['POST'])
+def post():
+    u"""投稿用URL
+    """
+    # 投稿されたデータを取得します
+    name = request.form.get('name') # 名前
+    comment = request.form.get('comment') # コメント
+    create_at = datetime.now() # 投稿日時(現在時刻)
+    # データを保存します
+    save_data(name, comment, create_at)
+    # 保存後はトップページにリダイレクトします
+    return redirect('/')
 
 @application.route('/')
 def index():
