@@ -36,7 +36,7 @@
           {% for greeting in greeting_list %}
             <h3>{{ greeting.name }} さんの書き込み
                 ({{ greeting.create_at }}):</h3>
-            <p>{{ greeting.comment }}</p>
+            <p>{{ greeting.comment | nl2br }}</p>
           {% endfor %}
         </div>
       </div>

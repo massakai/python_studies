@@ -55,6 +55,12 @@ def post():
     # 保存後はトップページにリダイレクトします
     return redirect('/')
 
+@application.template_filter('nl2br')
+def nl2br_filter(s):
+    u"""改行文字をbrタグに置き換えるテンプレートフィルタ
+    """
+    return escape(s).replace('\n', Markup('<br />'))
+
 @application.route('/')
 def index():
     u"""トップページ
