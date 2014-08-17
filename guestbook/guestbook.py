@@ -1,6 +1,12 @@
 # coding: utf-8
 import shelve
 
+from flask import Flask, request, render_template, redirect, escape, Markup
+
+application = Flask(__name__)
+
+IP = '172.31.15.214'
+PORT = 5000
 DATA_FILE = 'guestbook.dat'
 
 def save_data(name, comment, create_at):
@@ -34,3 +40,13 @@ def load_data():
     greeting_list = database.get('greeting_list', [])
     database.close()
     return greeting_list
+
+@application.route('/')
+def index():
+    u"""トップページ
+    テンプレートを使用してページを表示します
+    """
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    application.run(IP, PORT, debug=True)
