@@ -42,6 +42,15 @@ def load_data():
     database.close()
     return greeting_list
 
+@application.route('/')
+def index():
+    u"""トップページ
+    テンプレートを使用してページを表示します
+    """
+    # 投稿データを読み込みます
+    greeting_list = load_data()
+    return render_template('index.html', greeting_list=greeting_list)
+
 @application.route('/post', methods=['POST'])
 def post():
     u"""投稿用URL
@@ -66,15 +75,6 @@ def datetime_fmt_filter(dt):
     u"""datetimeオブジェクトを見やすい表示にするテンプレートフィルタ
     """
     return dt.strftime('%Y/%m/%d %H:%M:%S')
-
-@application.route('/')
-def index():
-    u"""トップページ
-    テンプレートを使用してページを表示します
-    """
-    # 投稿データを読み込みます
-    greeting_list = load_data()
-    return render_template('index.html', greeting_list=greeting_list)
 
 if __name__ == '__main__':
     application.run(IP, PORT, debug=True)
