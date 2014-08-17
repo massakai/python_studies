@@ -33,16 +33,11 @@
       <div id="entries-area">
         <h2>これまでの書き込み</h2>
         <div class="entry">
-          <h3>ゲスト さんの書き込み(2011/10/01 10:00:00):</h3>
-          <p>
-            書き込み内容<br />
-            書き込み内容
-          </p>
-          <h3>ゲスト さんの書き込み(2011/10/01 09:00:00):</h3>
-          <p>
-            書き込み内容<br />
-            書き込み内容
-          </p>
+          {% for greeting in greeting_list %}
+            <h3>{{ greeting.name }} さんの書き込み
+                ({{ greeting.create_at }}):</h3>
+            <p>{{ greeting.comment }}</p>
+          {% endfor %}
         </div>
       </div>
     </div>

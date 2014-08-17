@@ -46,7 +46,9 @@ def index():
     u"""トップページ
     テンプレートを使用してページを表示します
     """
-    return render_template('index.html')
+    # 投稿データを読み込みます
+    greeting_list = load_data()
+    return render_template('index.html', greeting_list=greeting_list)
 
 if __name__ == '__main__':
     application.run(IP, PORT, debug=True)
