@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ ! -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    echo "virualenvwrapper.sh is not exists."
+    exit 1
+fi
+
+source /usr/local/bin/virtualenvwrapper.sh
+mkvirtualenv --python=/usr/bin/python3.4 guestbook
+workon guestbook
+
+pip install -r requirement_for_guestbook.txt
