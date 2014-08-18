@@ -1,14 +1,17 @@
 # coding: utf-8
+u"""ゲストブックアプリケーション
+"""
 from datetime import datetime
 import shelve
 
 from flask import Flask, request, render_template, redirect, escape, Markup
 
-application = Flask(__name__)
+APPLICATION = Flask(__name__)
 
 IP = '172.31.15.214'
 PORT = 5000
 DATA_FILE = 'guestbook.dat'
+
 
 def save_data(name, comment, create_at):
     u"""投稿データを保存します
@@ -32,6 +35,7 @@ def save_data(name, comment, create_at):
     # データベースファイルを閉じます
     database.close()
 
+
 def load_data():
     u"""投稿されたデータを返します
     """
@@ -42,7 +46,8 @@ def load_data():
     database.close()
     return greeting_list
 
-@application.route('/')
+
+@APPLICATION.route('/')
 def index():
     u"""トップページ
     テンプレートを使用してページを表示します
@@ -51,30 +56,33 @@ def index():
     greeting_list = load_data()
     return render_template('index.html', greeting_list=greeting_list)
 
-@application.route('/post', methods=['POST'])
+
+@APPLICATION.route('/post', methods=['POST'])
 def post():
     u"""投稿用URL
     """
     # 投稿されたデータを取得します
-    name = request.form.get('name') # 名前
-    comment = request.form.get('comment') # コメント
-    create_at = datetime.now() # 投稿日時(現在時刻)
+    name = request.form.get('name')        # 名前
+    comment = request.form.get('comment')  # コメント
+    create_at = datetime.now()             # 投稿日時(現在時刻)
     # データを保存します
     save_data(name, comment, create_at)
     # 保存後はトップページにリダイレクトします
     return redirect('/')
 
-@application.template_filter('nl2br')
-def nl2br_filter(s):
+
+@APPLICATION.template_filter('nl2br')
+def nl2br_filter(string):
     u"""改行文字をbrタグに置き換えるテンプレートフィルタ
     """
-    return escape(s).replace('\n', Markup('<br />'))
+    return escape(string).replace('\n', Markup('<br />'))
 
-@application.template_filter('datetime_fmt')
-def datetime_fmt_filter(dt):
+
+@APPLICATION.template_filter('datetime_fmt')
+def datetime_fmt_filter(datetime_obj):
     u"""datetimeオブジェクトを見やすい表示にするテンプレートフィルタ
     """
-    return dt.strftime('%Y/%m/%d %H:%M:%S')
+    return datetime_obj.strftime('%Y/%m/%d %H:%M:%S')
 
 if __name__ == '__main__':
-    application.run(IP, PORT, debug=True)
+    APPLICATION.run(IP, PORT, debug=True)
