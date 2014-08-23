@@ -1,0 +1,5 @@
+===============
+AutoDocサンプル
+===============
+
+.. autofunction:: path.commonprefix

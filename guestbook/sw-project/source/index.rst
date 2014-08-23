@@ -21,3 +21,4 @@ Indices and tables
 * :ref:`search`
 
   sample
+  path
